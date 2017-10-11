@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>jqPlot Example</title>
+<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="excanvas.js"></script><![endif]-->
+<script language="javascript" type="text/javascript" src="javascript/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="javascript/jquery.jqplot.min.js"></script>
+<script language="javascript" type="text/javascript" src="javascript/jqplot.highlighter.js"></script>
+<script language="javascript" type="text/javascript" src="javascript/jqplot.dateAxisRenderer.js"></script>
+<script language="javascript" type="text/javascript" src="javascript/jqplot.cursor.js"></script>
+<script language="javascript" type="text/javascript" src="javascript/papaparse.js"></script>
+<script language="javascript" type="text/javascript" src="javascript/jqplot.canvasAxisLabelRenderer.js"></script>
+<script language="javascript" type="text/javascript" src="javascript/jqplot.canvasTextRenderer.js"></script>
+<script language="javascript" type="text/javascript" src="javascript/jqplot.canvasAxisTickRenderer.js"></script>
+<link rel="stylesheet" type="text/css" href="css/jquery.jqplot.css" />
+</head>
+<body>
+
+<h1 style="text-align: center;">jqPlot Example</h1>
+<div id="chart2"></div>
+<button class="button-reset">Reset Zoom</button>
+
+<script>
+$.get('data-files/large-precip-data.csv',function(data){
+  var precipData = Papa.parse(data,{header: true, skipEmptyLines: true, dynamicTyping: true});
+  var line1 = [];
+  var line2 = [];
+  var line3 = [];
+  for(index in precipData.data)
+  {
+    line1.push([precipData.data[index]['Date'],precipData.data[index]['53005']]);
+    line2.push([precipData.data[index]['Date'],precipData.data[index]['58839']]);
+    line3.push([precipData.data[index]['Date'],precipData.data[index]['52759']]);
+  }
+  var plot1 = $.jqplot('chart2', [line1,line2,line3], {
+      title:'Data Point Highlighting',
+      axes:{
+        xaxis:{
+          label: 'Date',
+          labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+          renderer:$.jqplot.DateAxisRenderer,
+          tickRenderer:$.jqplot.CanvasAxisTickRenderer,
+          tickOptions: {
+            angle: -30,
+            formatString:'%b %#d, %#I:%M %p'
+          },
+        },
+        yaxis:{
+          label: 'Precipitation (inches)',
+          labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+          tickOptions:{
+            formatString:'%.2f'
+            }
+        }
+      },
+      highlighter: {
+        show: true,
+        sizeAdjust: 7.5
+      },
+      legend: {
+        show: true
+      },
+      cursor: {
+        show: true,
+        zoom: true
+      },
+      series: [
+        {label: '53005'},
+        {label: '58839'},
+        {label: '52759'},
+      ]
+  });
+  $('.button-reset').click(function() { plot1.resetZoom() });
+});
+</script>
+</body>
+</html>
