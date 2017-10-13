@@ -25,4 +25,5 @@ Timeseries - examples graphing time series data
 See also:
 * [jqPlot Documentation](http://www.jqplot.com/docs/files/usage-txt.html)
 * [jqPlot API Reference](http://www.jqplot.com/docs/files/jqplot-core-js.html)
+* [jqPlot Plugin Reference](http://www.jqplot.com/docs/files/plugins/jqplot-barRenderer-js.html)
 * [jqPlot Examples](http://www.jqplot.com/examples/)

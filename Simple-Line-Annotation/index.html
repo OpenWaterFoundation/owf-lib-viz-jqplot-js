@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>jqPlot Line Annotation Example</title>
+<script language="javascript" type="text/javascript" src="javascript/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="javascript/jquery.jqplot.min.js"></script>
+<script language="javascript" type="text/javascript" src="javascript/jqplot.canvasOverlay.js"></script>
+<link rel="stylesheet" type="text/css" href="css/jquery.jqplot.css" />
+</head>
+<body>
+  <!-- Header -->
+  <h1>jqPlot Line Annotation Example</h1>
+  <!-- Div element used to attach the jqPlot to. -->
+  <div id="chart1"></div>
+</body>
+<script>
+/* Array of data values to be plotted on the jqPlot graph. */
+var line = [[9, 3.5], [15, 4.4], [22, 6.0], [38, 9.1], [51, 12.0], [62, 14.4]];
+/* create new jqPlot and assign it to the variable called plot1. When creating a new plot, pass in the
+id of a div element created above (<div id="chart2"></div>) and an array that contains arrays that contain the data points
+i.e. (line).
+*/
+var plot1 = $.jqplot('chart1', [line], {
+  /* Object that belongs to the canvasOverlay class. This will be used to add the verticalLine components to the jqplot. */
+  canvasOverlay: {
+      /* When set to true, the below objects will display on the jqPlot. */
+      show: true,
+      objects: [{
+        /* A straight vertical line. */
+        verticalLine: {
+            /* Optional name for the veticalLine object. */
+            name: 'barney',
+            /* Data point to plot the line at. */
+            x: 10,
+            /* Width of the line. */
+            lineWidth: 6,
+            /* RGB color of the line. */
+            color: 'rgb(100, 55, 124)',
+            /* Used to determine if the line will have a shadow or not. */
+            shadow: false
+          }
+        },
+        {
+          dashedVerticalLine: {
+            /* Optional name for the veticalLine object. */
+            name: 'fred',
+            /* Data point to plot the line at. */
+            x: 15,
+            /* Width of the line. */
+            lineWidth: 6,
+            /* RGB color of the line. */
+            color: 'rgb(0, 0, 0)',
+            /* Used to determine if the line will have a shadow or not. */
+            shadow: false
+          }
+        },
+      ]
+  }
+});
+</script>
+</html>
