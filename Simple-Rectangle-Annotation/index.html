@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>jqPlot Rectangle Annotation Example</title>
+<script language="javascript" type="text/javascript" src="javascript/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="javascript/jquery.jqplot.min.js"></script>
+<script language="javascript" type="text/javascript" src="javascript/jqplot.canvasOverlay.js"></script>
+<script language="javascript" type="text/javascript" src="javascript/jqplot.canvasTextRenderer.js"></script>
+<script language="javascript" type="text/javascript" src="javascript/jqplot.canvasAxisLabelRenderer.js"></script>
+<script language="javascript" type="text/javascript" src="javascript/jqplot.dateAxisRenderer.js"></script>
+<link rel="stylesheet" type="text/css" href="css/jquery.jqplot.css" />
+</head>
+<body>
+<!-- Header -->
+<h1 style="text-align: center;">jqPlot Rectangle Annotation Example</h1>
+<!-- Div element used to attach the jqPlot to. -->
+<div id="chart1"></div>
+</body>
+<script>
+/* create new jqPlot and assign it to the variable called plot1. When creating a new plot, pass in the
+id of a div element created above (<div id="chart2"></div>) and an array that contains arrays that contain the data points. */
+var plot1 = $.jqplot ('chart1', [[30,-10,90,20,50,130,80,120,50]], {
+  /* Object that belongs to the canvasOverlay class. This will be used to add the verticalLine components to the jqplot. */
+  canvasOverlay: {
+    /* When set to true, the below objects will display on the jqPlot. */
+      show: true,
+      objects: [{
+        /* A rectangle object. */
+        rectangle: {
+          /* x value for the start of the rectangle (length). */
+          xmin:3.5,
+          /* x value for the end of the rectangele (length). */
+          xmax: 8.2,
+          /* y value for the start of the recangle (height). */
+          ymin: 10,
+          /* y value for the end of the rectangle (height). */
+          ymax: 70,
+          /* RGB color of the rectangle. */
+          color: "rgba(200, 100, 100, 0.3)",
+        }
+      },
+    ]
+  }
+});
+</script>
+</html>
