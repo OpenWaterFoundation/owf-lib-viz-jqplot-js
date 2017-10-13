@@ -15,54 +15,82 @@
 </head>
 <body>
 
+<!-- Header -->
 <h1 style="text-align: center;">jqPlot Example</h1>
+<!-- Div element used to attach the jqPlot to. -->
 <div id="chart2"></div>
 
 <script>
+/* Get/Read the file called large-precip-data.csv in order to read its data. */
 $.get('data-files/small-precip-data.csv',function(data){
+  /* Use Papa Parse to parse the data being read in as an array. */
   var precipData = Papa.parse(data,{header: true, skipEmptyLines: true, dynamicTyping: true});
+  /* The four arrays below will be used to store the data for each sequence/site number */
   var line1 = [];
   var line2 = [];
   var line3 = [];
   var line4 = [];
+  /* Iterate through precipData.data (this is where the data values live). Push the proper data to
+  the proper line variable (aka line1 has all of site 054054's data points, line2 has all of site 053005's data points, etc.). */
   for(index in precipData.data)
   {
-    line1.push([precipData.data[index]['Date'],precipData.data[index]['054054']]);
     line1.push([precipData.data[index]['Date'],precipData.data[index]['054054']]);
     line2.push([precipData.data[index]['Date'],precipData.data[index]['053005']]);
     line3.push([precipData.data[index]['Date'],precipData.data[index]['058839']]);
     line4.push([precipData.data[index]['Date'],precipData.data[index]['051060']]);
   }
+  /* create new jqPlot and assign it to the variable called plot1. When creating a new plot, pass in the
+  id of a div element created above (<div id="chart2"></div>) and an array that contains arrays that contain the data points
+  i.e. (line1,line2,line3).
+  */
   var plot1 = $.jqplot('chart2', [line1,line2,line3], {
-      title:'Data Point Highlighting',
-      axes:{
+    /* Create title of the Chart */
+    title:'Data Point Highlighting',
+    axes:{
         xaxis:{
+          /* xAxis label */
           label: 'Date',
+          /* A class of a rendering engine used for creating an axis label. */
           labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+          /* A class of a rendering engine that handles tick generation, scaling input data to pixel grid units and drawing axis elements. */
           renderer:$.jqplot.DateAxisRenderer,
+          /* Options that will be passed in the tickrenderer. */
           tickOptions:{
+            /* Formats the tick labels to display the Year-Month-Day. */
             formatString:'%Y-%m-%d'
           }
         },
         yaxis:{
+          /* yAxis label */
           label: 'Precipitation (inches)',
+          /* A class of a rendering engine used for creating an axis label */
           labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+          /* Options that will be passed in the tickrenderer. */
           tickOptions:{
+            /* Formats the tick labels to display floating point numbers carried out to two decimals. */
             formatString:'%.2f'
             }
         }
       },
+      /* Allows a user to hover over data points and display the associated data value. */
       highlighter: {
+        /* When set to true, the user will be allowed to hover over data points and the associated value will display. */
         show: true,
-        sizeAdjust: 7.5
       },
+      /* Legend object. */
       legend: {
+        /* When set to true, the graph will display a legend associated with the data being displayed. */
         show: true
       },
+      /* Changes the users mouse cursor to crosshairs. */
       cursor: {
+        /* When set to true, the graph will change the users cursor. */
         show: false
       },
+      /* Contiains information about the series being used. Within this object you can change a series color, name, add labels
+      to the legend, etc. */
       series: [
+        /* Adds four labels to the legend (054054,053005,058839,051060). */
         {label: '054054'},
         {label: '053005'},
         {label: '058839'},
